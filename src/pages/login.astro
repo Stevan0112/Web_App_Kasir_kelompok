@@ -1,0 +1,22 @@
+---
+import Auth from "../layouts/Auth.astro";
+---
+
+<Auth>
+    <div class="mb-8 flex flex-col gap-2">
+        <h1 class="text-2xl md:text-3xl font-semibold">Get to work, Cloresto people!</h1>
+        <p class="text-gray-400 text-sm md:text-base">Let's start the day with smile, and pleasure our customers!.</p>
+    </div>
+    <form class="flex flex-col gap-6" method="POST">
+        <div class="flex flex-col gap-1.5">
+            <label for="username" class="font-semibold">Username</label>
+            <input type="text" id="username" class="border border-gray-700 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500" name="username" required />
+            <label for="password" class="font-semibold">Password</label>
+            <input type="password" id="password" class="border border-gray-700 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500" name="password" required />
+        </div>
+        <button type="submit" class="mt-2 bg-pink-500 text-white rounded-full py-3 font-semibold hover:bg-pink-600 transition">
+            Continue
+        </button>
+        <p class="text-center font-semibold text-sm">No registered yet? <a href="#" class="text-pink-500 font-semibold hover:underline">Create an account</a></p>
+    </form>
+</Auth>

@@ -1,0 +1,40 @@
+---
+import Auth from '../layouts/Auth.astro';
+---
+
+<Auth>
+    <div class="mb-8 flex flex-col gap-2">
+        <h1 class="text-2xl md:text-4xl font-semibold">Register</h1>
+        <p class="text-gray-400 text-sm md:text-base">Create your new account</p>
+    </div>
+    <form class="flex flex-col gap-6" method="POST">
+        <div class="flex flex-col gap-1.5">
+            <!-- Name -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-y-1.5 md:gap-x-6">
+                <div class="flex flex-col gap-1.5">
+                    <label for="firstName" class="font-semibold">First Name</label>
+                    <input type="text" class="border border-gray-700 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500" id="first-name" name="first-name" required />
+                </div>
+                <div class="flex flex-col gap-1.5">
+                    <label for="lastName" class="font-semibold">Last Name</label>
+                    <input type="text" class="border border-gray-700 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500" id="last-name" name="last-name" required />
+                </div>
+            </div>
+
+            <!-- Email -->
+            <label for="email" class="font-semibold">Email Address</label>
+            <input type="email" class="border border-gray-700 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500" id="email" name="email" required />
+
+            <!-- Password -->
+            <label for="password" class="font-semibold">Password</label>
+            <input type="password" class="border border-gray-700 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500" id="password" name="password" required />
+
+            <!-- Confirm Password -->
+            <label for="confirmPassword" class="font-semibold">Confirm Password</label>
+            <input type="password" class="border border-gray-700 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-500" id="confirm-password" name="confirm-password" required />
+        </div>
+        <button type="submit" class="mt-2 bg-pink-500 text-white rounded-full py-3 font-semibold hover:bg-pink-600 transition">
+            Continue
+        </button>
+    </form>
+</Auth>
