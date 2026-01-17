@@ -22,24 +22,28 @@ import Dashboard from "../../layouts/Dashboard.astro";
         </section>
 
         <!-- Chart and Top Selling Section -->
-        <section class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <section class="grid grid-cols-1 xl:grid-cols-2 gap-6">
             <!-- Chart -->
-            <div class="xl:col-span-2 bg-white rounded-xl p-4 shadow-sm">
+            <div class="bg-white rounded-xl p-4 shadow-sm flex flex-col h-90">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="font-semibold">Sales Statistics</h2>
                     <span>...</span>
                 </div>
 
                 <!-- Fake Chart -->
-                <div class="h-64 flex items-end gap-2">
-                    {Array(10).fill(0).map(() => (
-                        <div class="flex-1 bg-green-400 rounded"></div>
-                    ))}
+                <div class="flex-1 flex items-end gap-2">
+                    <!-- {[40, 70, 55, 80, 60].map(h => (
+                        <div class="flex-1 bg-green-400 rounded" style={`height: ${h}%`}></div>
+                    ))} -->
+                    <div class="w-full h-[40%] bg-red-400 rounded"></div>
+                    <div class="w-full h-[70%] bg-green-400 rounded"></div>
+                    <div class="w-full h-[55%] bg-yellow-400 rounded"></div>
+                    <div class="w-full h-[80%] bg-green-400 rounded"></div>
                 </div>
             </div>
 
             <!-- Top Selling Products and Map/Image -->
-            <div class="bg-white rounded-xl p-4 shadow-sm">
+            <div class="bg-white rounded-xl p-4 shadow-sm flex flex-col h-90">
                 <div class="mb-4">
                     <h2 class="font-semibold">Top Selling Products</h2>
                 </div>
@@ -47,7 +51,7 @@ import Dashboard from "../../layouts/Dashboard.astro";
                 <img 
                 src="https://images.unsplash.com/vector-1757385854214-9e9b9c9de850?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDl8fHJlc3RhdXJhbnR8ZW58MHx8MHx8fDI%3D" 
                 alt="Map"
-                class="w-full h-64 object-cover rounded-lg"
+                class="flex-1 h-64 w-full object-cover rounded-lg"
                 />
             </div>
         </section>
