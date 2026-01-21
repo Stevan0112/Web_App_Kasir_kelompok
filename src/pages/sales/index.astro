@@ -2,33 +2,69 @@
 import Dashboard from "../../layouts/Dashboard.astro";
 ---
 
-<Dashboard>
+<Dashboard title="Sales">
     <div class="space-y-6">
-        <section class="bg-white rounded-xl p-4 shadow-sm overflow-x-auto">
-            <h2 class="font-semibold mb-4">Top Selling Products</h2>
+        <!-- Card -->
+        <section class="bg-white rounded-xl shadow-sm overflow-x-auto">
+            <!-- Card Header -->
+            <div class="flex items-center justify-between px-4 py-3 border-b">
+                <h2 class="font-semibold">Top Selling Weekly</h2>
+                <div class="flex gap-2">
+                    <button class="px-3 py-1 text-sm border rounded-md hover:bg-gray-100">
+                        Filter
+                    </button>
+                    <button class="px-3 py-1 text-sm border rounded-md hover:bg-gray-100">
+                        See All
+                    </button>
+                    <button class="px-3 py-1 text-sm bg-pink-500 text-white rounded-md hover:bg-pink-600">
+                        + Add
+                    </button>
+                </div>
+            </div>
 
+            <!-- Table -->
             <table class="w-full text-sm">
                 <thead class="text-gray-500 border-b">
                     <tr>
-                        <th class="text-left py-2">Product Name</th>
-                        <th class="text-left py-2">Price</th>
-                        <th class="text-left py-2">Category</th>
-                        <th class="text-left py-2">Quantity</th>
-                        <th class="text-left py-2">Amount</th>
-                        <th class="text-left py-2">Action</th>
+                        <!-- <th class="px-4 py-3">
+                            <input type="checkbox" />
+                        </th> -->
+                        <th class="text-center py-3">Product Name</th>
+                        <th class="text-left py-3">Start Date</th>
+                        <th class="text-left py-3">End Date</th>
+                        <th class="text-left py-3">Stock</th>
+                        <th class="text-left py-3">Status</th>
+                        <th class="text-center py-3">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {Array(5).fill(0).map(() => (
-                        <tr class="border-b hover:bg-gray-200">
-                            <td class="py-3">Good Food</td>
-                            <td class="py-3">Rp.0</td>
-                            <td class="py-3">Makanan</td>
-                            <td class="py-3">0</td>
-                            <td class="py-3"></td>
-                            <td class="py-3">⋮</td>
-                        </tr>
-                    ))}
+                {Array(8).fill(0).map(() => (
+                    <tr class="border-b hover:bg-gray-50">
+                        {/* <td class="px-4 py-3">
+                            <input type="checkbox" />
+                        </td> */}
+                        <!-- Product -->
+                        <td class="py-3 text-center font-medium">Mie ayam</td>
+                        <td class="py-3">01 - 01 - 2026</td>
+                        <td class="py-3">21 - 01 - 2026</td>
+                        <td class="py-3">500</td>
+
+                        <!-- Status -->
+                        <td class="py-3">
+                            <div class="w-20 h-4 bg-gray-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-green-400 w-3/4"></div>
+                            </div>
+                        </td>
+
+                        <!-- Action -->
+                        <td class="py-3 text-center">
+                            <div class="flex justify-center gap-2">
+                            <button class="w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300">✏️</button>
+                            <button class="w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300">🗑️</button>
+                            </div>
+                        </td>
+                    </tr>
+                ))}
                 </tbody>
             </table>
         </section>
