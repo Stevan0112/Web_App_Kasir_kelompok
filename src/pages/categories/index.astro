@@ -1,0 +1,8 @@
+---
+import Dashboard from "../../layouts/Dashboard.astro";
+
+const resp = await fetch('https://backend-webappkasir-production.up.railway.app/api/categories');
+const categories = await resp.json();
+---
+
+<Dashboard title="Categories"></Dashboard>
