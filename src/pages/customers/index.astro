@@ -1,7 +1,7 @@
 ---
 import Dashboard from "../../layouts/Dashboard.astro";
 
-const resp = await fetch('https://backend-webappkasir-production.up.railway.app/api/customers');
+const resp = await fetch('http://localhost:3000/api/customers');
 const customers = await resp.json();
 ---
 
@@ -13,6 +13,17 @@ const customers = await resp.json();
                 + New Customer
             </button>
         </div>
+
+        <!-- Total Customers Card -->
+        <section class="bg-white rounded-xl p-4 shadow-sm flex items-center gap-4">
+            <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z" /><path d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z" /></svg>
+            </div>
+            <div>
+                <p class="font-medium">Total Customers</p>
+                <h3 class="text-2xl font-bold">{customers.length}</h3>
+            </div>
+        </section>
 
         <!-- Customer Lists -->
         <section class="bg-white rounded-xl shadow-sm overflow-x-auto">

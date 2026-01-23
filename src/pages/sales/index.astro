@@ -1,22 +1,30 @@
 ---
 import Dashboard from "../../layouts/Dashboard.astro";
 
-const resp = await fetch('https://backend-webappkasir-production.up.railway.app/api/penjualan');
+const resp = await fetch('http://localhost:3000/api/penjualan');
 const sales = await resp.json();
 ---
 
 <Dashboard title="Sales">
     <div class="space-y-6">
+        <!-- Search Bar -->
+        <div class="flex items-center justify-center">
+            <div class="relative w-64">
+                <input id="searchInput" type="text" placeholder="Search" class="w-full bg-white px-4 py-2 rounded-4xl focus:outline-none focus:ring-2 focus:ring-pink-500">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search absolute right-3 top-2.5"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+            </div>
+        </div>
+
         <!-- Card -->
         <section class="bg-white rounded-xl shadow-sm overflow-x-auto">
             <!-- Card Header -->
             <div class="flex items-center justify-between px-4 py-3 border-b">
-                <h2 class="font-bold text-2xl">Top Sales Weekly</h2>
+                <h2 class="font-bold text-2xl">Data Penjualan</h2>
                 <div class="flex gap-2">
                     <!-- <button class="px-3 py-1 text-sm border rounded-md hover:bg-gray-100">
                         Filter
                     </button> -->
-                    <button class="px-3 py-1 text-sm border rounded-md bg-gray-100 hover:bg-gray-200">
+                    <button id="resetSearch" class="px-3 py-1 text-sm border rounded-md bg-gray-100 hover:bg-gray-200">
                         See All
                     </button>
                     <button class="px-3 py-1 text-sm bg-pink-500 text-white rounded-md hover:bg-pink-600">
@@ -29,20 +37,20 @@ const sales = await resp.json();
             <table class="w-full text-sm">
                 <thead class="text-gray-500 border-b">
                     <tr>
-                        <th class="text-left px-2 py-3">Order ID</th>
-                        <th class="text-left py-3">Transaction Date</th>
-                        <th class="text-left py-3">Total Amount</th>
-                        <th class="text-left py-3">Customer Name</th>
-                        <th class="text-center py-3">Action</th>
+                        <th class="text-left px-2 py-3">ID</th>
+                        <th class="text-left py-3">Tanggal Transaksi</th>
+                        <th class="text-left py-3">Total Pendapatan</th>
+                        <th class="text-left py-3">Nama Customer</th>
+                        <th class="text-center py-3">Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="salesTableBody">
                 {sales.map((order: any) => (
-                    <tr class="border-b hover:bg-gray-100">
+                    <tr class="border-b hover:bg-gray-100" data-search={`${order.id} ${order.customer_name} ${order.transaction_date}`.toLowerCase()}>
                         <!-- Product -->
                         <td class="py-3 px-2 text-left font-medium">{order.id}</td>
                         <td class="py-3">{order.transaction_date}</td>
-                        <td class="py-3">{order.total_amount}</td>
+                        <td class="py-3">Rp. {order.total_amount},-</td>
                         <td class="py-3">{order.customer_name}</td>
 
                         <!-- Action -->
@@ -63,35 +71,30 @@ const sales = await resp.json();
         </section>
 
         <!-- Pagination -->
-        <div class="flex justify-center gap-2">
-            <!-- Prev Button -->
-            <!-- {page > 1 && (
-                <a href={`?page=${page - 1}`} class="px-3 py-1 bg-gray-300 hover:bg-gray-400">
-                    ←
-                </a>
-            )} -->
-
-            <!-- Page Numbers -->
-            <!-- {Array.from({ length: totalPages}).map((_, i) => {
-                const pageNumber = i + 1;
-                return (
-                    <a href={`?page=${pageNumber}`} class={`w-8 h-8 flex items-center justify-center bg-gray-300 ${pageNumber === page ? "bg-gray-400" : "hover:bg-gray-400"}`}>
-                        {pageNumber}
-                    </a>
-                );
-            })} -->
-
-            <!-- Next Button -->
-            <!-- {page < totalPages && (
-                <a href={`?page=${page + 1}`} class="px-3 py-1 bg-gray-300 hover:bg-gray-400">
-                    →
-                </a>
-            )} -->
-
-            <!-- Old Pagination -->
-            <!-- <button class="w-8 h-8 bg-gray-300 hover:bg-gray-400">1</button>
-            <button class="w-8 h-8 bg-gray-300 hover:bg-gray-400">2</button>
-            <button class="w-8 h-8 bg-gray-300 hover:bg-gray-400">→</button> -->
-        </div>
     </div>
+
+    <script is:inline>
+        const searchInput = document.getElementById('searchInput');
+        const resetBtn = document.getElementById('resetSearch');
+        const rows = document.querySelectorAll('#salesTableBody tr');
+
+        function filterTable(keyword) {
+            rows.forEach(row => {
+                const text = row.dataset.search || '';
+                row.style.display = text.includes(keyword) ? '' : 'none';
+            })
+        }
+
+        // Search input event
+        searchInput.addEventListener('input', (e) => {
+            const keyword = e.target.value.toLowerCase().trim();
+            filterTable(keyword);
+        });
+
+        // Reset button event
+        resetBtn.addEventListener('click', () => {
+            searchInput.value = '';
+            filterTable('');
+        });
+    </script>
 </Dashboard>

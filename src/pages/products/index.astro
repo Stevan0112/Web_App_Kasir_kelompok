@@ -1,8 +1,12 @@
 ---
 import Dashboard from "../../layouts/Dashboard.astro";
 
-const resp = await fetch('https://backend-webappkasir-production.up.railway.app/api/products');
-const products = await resp.json();
+const [productResp, categoryResp] = await Promise.all([
+    fetch('http://localhost:3000/api/products'),
+    fetch('http://localhost:3000/api/categories')
+]);
+const products = await productResp.json();
+const categories = await categoryResp.json();
 ---
 
 <Dashboard title="Products">
@@ -13,6 +17,21 @@ const products = await resp.json();
                 + New Product
             </button>
         </div>
+
+        <!-- Category Cards -->
+        <section class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4">
+            {categories.map((cat: any) => (
+                <a href={`?category=${cat.CATEGORY_ID}`} class="bg-white rounded-xl p-4 flex items-center gap-3 shadow-sm hover:shadow-md transition">
+                    <div class="w-10 h-10 bg-gray-300 rounded-full"></div>
+                    <div>
+                        <p class="font-medium">{cat.CATEGORY}(<span class="font-bold">{cat.CATEGORY_ID}</span>)</p>
+                        <p class="font-bold">
+                            {products.filter((p: any) => p.CATEGORY_ID === cat.CATEGORY_ID).length}
+                        </p>
+                    </div>
+                </a>
+            ))}
+        </section>
 
         <!-- Product Grid -->
         <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -45,7 +64,10 @@ const products = await resp.json();
                         </div>
 
                         <!-- Price -->
-                        <p class="font-medium">Rp. {product.PRICE},-</p>
+                        <div class="flex justify-between">
+                            <span class="font-medium">Rp. {product.PRICE},-</span>
+                            <span class="font-bold">{product.CATEGORY_ID}</span>
+                        </div>
 
                         <!-- Actions -->
                         <div class="space-y-2 pt-2">
@@ -61,36 +83,16 @@ const products = await resp.json();
             ))}
         </section>
 
+        <!-- Floating Cart Button -->
+        <button
+        class="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full bg-pink-500 text-white shadow-lg hover:bg-pink-600 flex items-center justify-center transition"
+        aria-label="Open Cart"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6 2a1 1 0 0 1 .993 .883l.007 .117v1.068l13.071 .935a1 1 0 0 1 .929 1.024l-.01 .114l-1 7a1 1 0 0 1 -.877 .853l-.113 .006h-12v2h10a3 3 0 1 1 -2.995 3.176l-.005 -.176l.005 -.176c.017 -.288 .074 -.564 .166 -.824h-5.342a3 3 0 1 1 -5.824 1.176l-.005 -.176l.005 -.176a3.002 3.002 0 0 1 1.995 -2.654v-12.17h-1a1 1 0 0 1 -.993 -.883l-.007 -.117a1 1 0 0 1 .883 -.993l.117 -.007h2z"/>
+            </svg>
+        </button>
+
         <!-- Pagination -->
-        <div class="flex justify-center gap-2">
-            <!-- Prev Button -->
-            <!-- {currentPage > 1 && (
-                <a href={`?page=${currentPage - 1}`} class="px-3 py-1 bg-gray-300 hover:bg-gray-400">
-                    ←
-                </a>
-            )} -->
-
-            <!-- Page Numbers -->
-            <!-- {Array.from({ length: totalPages }, (_, i) => {
-                const pageNumber = i + 1;
-                return (
-                    <a href={`?page=${pageNumber}`} class={`w-8 h-8 flex items-center justify-center bg-gray-300 ${pageNumber === currentPage ? "bg-gray-400" : "hover:bg-gray-400"}`}>
-                        {pageNumber}
-                    </a>
-                );
-            })} -->
-
-            <!-- Next Button -->
-            <!-- {currentPage < totalPages && (
-                <a href={`?page=${currentPage + 1}`} class="px-3 py-1 bg-gray-300 hover:bg-gray-400">
-                    →
-                </a>
-            )} -->
-
-            <!-- Old Pagination -->
-            <!-- <button class="w-8 h-8 bg-gray-300 hover:bg-gray-400">1</button>
-            <button class="w-8 h-8 bg-gray-300 hover:bg-gray-400">2</button>
-            <button class="w-8 h-8 bg-gray-300 hover:bg-gray-400">→</button> -->
-        </div>
     </div>
 </Dashboard>

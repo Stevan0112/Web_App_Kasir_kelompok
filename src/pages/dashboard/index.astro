@@ -1,16 +1,16 @@
 ---
 import Dashboard from "../../layouts/Dashboard.astro";
 
-const resp = await fetch('https://backend-webappkasir-production.up.railway.app/api/uas/1');
-const resp2 = await fetch('https://backend-webappkasir-production.up.railway.app/api/uas/2');
-const resp3 = await fetch('https://backend-webappkasir-production.up.railway.app/api/uas/3');
-const resp4 = await fetch('https://backend-webappkasir-production.up.railway.app/api/uas/4');
-const resp5 = await fetch('https://backend-webappkasir-production.up.railway.app/api/uas/5');
-const resp6 = await fetch('https://backend-webappkasir-production.up.railway.app/api/uas/6');
-const resp7 = await fetch('https://backend-webappkasir-production.up.railway.app/api/uas/7');
-const resp8 = await fetch('https://backend-webappkasir-production.up.railway.app/api/uas/8');
-const resp9 = await fetch('https://backend-webappkasir-production.up.railway.app/api/uas/9');
-const resp10 = await fetch('https://backend-webappkasir-production.up.railway.app/api/uas/10');
+const resp = await fetch('http://localhost:3000/api/uas/1');
+const resp2 = await fetch('http://localhost:3000/api/uas/2');
+const resp3 = await fetch('http://localhost:3000/api/uas/3');
+const resp4 = await fetch('http://localhost:3000/api/uas/4');
+const resp5 = await fetch('http://localhost:3000/api/uas/5');
+const resp6 = await fetch('http://localhost:3000/api/uas/6');
+const resp7 = await fetch('http://localhost:3000/api/uas/7');
+const resp8 = await fetch('http://localhost:3000/api/uas/8');
+const resp9 = await fetch('http://localhost:3000/api/uas/9');
+const resp10 = await fetch('http://localhost:3000/api/uas/10');
 
 const data1 = await resp.json();
 const data2 = await resp2.json();
@@ -42,41 +42,6 @@ const data10 = await resp10.json();
                 </div>
             ))}
         </section>
-
-        <!-- Chart and Top Selling Section -->
-        <!-- <section class="grid grid-cols-1 xl:grid-cols-2 gap-6"> -->
-            <!-- Chart -->
-            <!-- <div class="bg-white rounded-xl p-4 shadow-sm flex flex-col h-90">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="font-semibold">Sales Statistics</h2>
-                    <span>...</span>
-                </div> -->
-
-                <!-- Fake Chart -->
-                <!-- <div class="flex-1 flex items-end gap-2"> -->
-                    <!-- {[40, 70, 55, 80, 60].map(h => (
-                        <div class="flex-1 bg-green-400 rounded" style={`height: ${h}%`}></div>
-                    ))} -->
-                    <!-- <div class="w-full h-[40%] bg-red-400 rounded"></div>
-                    <div class="w-full h-[70%] bg-green-400 rounded"></div>
-                    <div class="w-full h-[55%] bg-yellow-400 rounded"></div>
-                    <div class="w-full h-[80%] bg-green-400 rounded"></div>
-                </div>
-            </div> -->
-
-            <!-- Top Selling Products and Map/Image -->
-            <!-- <div class="bg-white rounded-xl p-4 shadow-sm flex flex-col h-90">
-                <div class="mb-4">
-                    <h2 class="font-semibold">Top Selling Products</h2>
-                </div>
-
-                <img 
-                src="https://images.unsplash.com/vector-1757385854214-9e9b9c9de850?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDl8fHJlc3RhdXJhbnR8ZW58MHx8MHx8fDI%3D" 
-                alt="Map"
-                class="flex-1 h-64 w-full object-cover rounded-lg"
-                />
-            </div>
-        </section> -->
 
         <!-- Table Section -->
         <!-- Most purchased products of the previous year -->
