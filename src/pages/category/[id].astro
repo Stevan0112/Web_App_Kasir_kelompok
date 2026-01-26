@@ -1,0 +1,9 @@
+---
+import Frontpage from "../../layouts/Frontpage.astro";
+
+const { id } = Astro.params;
+
+// Menampilkan detail category
+const resp = await fetch(`http://localhost:3000/api/categories/${id}`);
+const category = await resp.json();
+---

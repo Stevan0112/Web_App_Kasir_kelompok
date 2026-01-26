@@ -1,75 +1,125 @@
 ---
 import Dashboard from "../../layouts/Dashboard.astro";
 
-const resp = await fetch('http://localhost:3000/api/uas/1');
-const resp2 = await fetch('http://localhost:3000/api/uas/2');
-const resp3 = await fetch('http://localhost:3000/api/uas/3');
-const resp4 = await fetch('http://localhost:3000/api/uas/4');
-const resp5 = await fetch('http://localhost:3000/api/uas/5');
-const resp6 = await fetch('http://localhost:3000/api/uas/6');
-const resp7 = await fetch('http://localhost:3000/api/uas/7');
-const resp8 = await fetch('http://localhost:3000/api/uas/8');
-const resp9 = await fetch('http://localhost:3000/api/uas/9');
-const resp10 = await fetch('http://localhost:3000/api/uas/10');
+const [data1, data2, data3, data4, data5, data6, data7, data8, data9, data10] = await Promise.all([
+    fetch('http://localhost:3000/api/uas/1').then(res => res.json()),
+    fetch('http://localhost:3000/api/uas/2').then(res => res.json()),
+    fetch('http://localhost:3000/api/uas/3').then(res => res.json()),
+    fetch('http://localhost:3000/api/uas/4').then(res => res.json()),
+    fetch('http://localhost:3000/api/uas/5').then(res => res.json()),
+    fetch('http://localhost:3000/api/uas/6').then(res => res.json()),
+    fetch('http://localhost:3000/api/uas/7').then(res => res.json()),
+    fetch('http://localhost:3000/api/uas/8').then(res => res.json()),
+    fetch('http://localhost:3000/api/uas/9').then(res => res.json()),
+    fetch('http://localhost:3000/api/uas/10').then(res => res.json())
+]);
 
-const data1 = await resp.json();
-const data2 = await resp2.json();
-const data3 = await resp3.json();
-const data4 = await resp4.json();
-const data5 = await resp5.json();
-const data6 = await resp6.json();
-const data7 = await resp7.json();
-const data8 = await resp8.json();
-const data9 = await resp9.json();
-const data10 = await resp10.json();
+const totalRevenue = data9.reduce(
+    (sum: number, d: any) => sum + Number(d.TotalNominal),
+    0
+);
+
+const totalOrders = data2.reduce(
+    (sum: number, d: any) => sum + Number(d.JumlahOrder),
+    0
+);
+
+const totalProducts = data5.length;
+
+const totalCustomers = new Set(data2.map((d: any) => d.CUST_NAME)).size;
 ---
 
 <Dashboard title="Dashboard">
     <div class="space-y-6">
         <!-- Summary Cards Section -->
         <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-            {Array(4).fill(0).map(() => (
-                <div class="bg-white rounded-xl p-4 shadow-sm">
-                    <div class="flex justify-between items-start">
-                        <p class="text-sm text-gray-800">Title</p>
-                        <span>...</span>
-                    </div>
-                    <h3 class="mt-2 text-xl font-semibold">Rp.0</h3>
-                    <div class="flex items-center gap-2 md:gap-4 mt-4">
-                        <div class="mt-2 text-sm text-green-600 bg-green-100 inline-block px-3 py-0.5 rounded">↑ 20%</div>
-                        <p class="text-sm text-gray-800">Last Week</p>
-                    </div>
+            <div class="bg-white rounded-xl p-4 shadow-sm">
+                <div class="flex justify-between items-start">
+                    <p class="text-sm text-gray-800">Pendapatan</p>
+                    <span>...</span>
                 </div>
-            ))}
+                <h3 class="mt-2 text-xl font-semibold">Rp. {totalRevenue.toLocaleString("id-ID")}</h3>
+                <div class="flex items-center gap-2 md:gap-4 mt-4">
+                    <div class="mt-2 text-sm text-green-600 bg-green-100 inline-block px-3 py-0.5 rounded">↑ 20%</div>
+                    <p class="text-sm text-gray-800">Last Week</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl p-4 shadow-sm">
+                <div class="flex justify-between items-start">
+                    <p class="text-sm text-gray-800">Total Order</p>
+                    <span>...</span>
+                </div>
+                <h3 class="mt-2 text-xl font-semibold">{totalOrders}</h3>
+                <div class="flex items-center gap-2 md:gap-4 mt-4">
+                    <div class="mt-2 text-sm text-green-600 bg-green-100 inline-block px-3 py-0.5 rounded">↑ 10%</div>
+                    <p class="text-sm text-gray-800">Last Week</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl p-4 shadow-sm">
+                <div class="flex justify-between items-start">
+                    <p class="text-sm text-gray-800">Total Produk</p>
+                    <span>...</span>
+                </div>
+                <h3 class="mt-2 text-xl font-semibold">{totalProducts}</h3>
+                <div class="flex items-center gap-2 md:gap-4 mt-4">
+                    <div class="mt-2 text-sm text-gray-600 bg-gray-200 inline-block px-3 py-0.5 rounded">~ 0%</div>
+                    <p class="text-sm text-gray-800">Last Week</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl p-4 shadow-sm">
+                <div class="flex justify-between items-start">
+                    <p class="text-sm text-gray-800">Total Customers</p>
+                    <span>...</span>
+                </div>
+                <h3 class="mt-2 text-xl font-semibold">{totalCustomers}</h3>
+                <div class="flex items-center gap-2 md:gap-4 mt-4">
+                    <div class="mt-2 text-sm text-green-600 bg-green-100 inline-block px-3 py-0.5 rounded">↑ 15%</div>
+                    <p class="text-sm text-gray-800">Last Week</p>
+                </div>
+            </div>
         </section>
 
         <!-- Table Section -->
         <!-- Most purchased products of the previous year -->
-        <section class="bg-white rounded-xl p-4 shadow-sm overflow-x-auto">
+        <section class="bg-white rounded-xl p-4 shadow-sm max-h-100 overflow-y-auto overflow-x-auto">
             <h2 class="font-bold mb-4 text-2xl">Most purchased products of the previous year</h2>
-            <p class="text-sm text-gray-800">Product Name</p>
-            <div class="mt-2 border w-md border-gray-300"></div>
-            {data1.map((dt1: any) => (
-                <h3 class="mt-3 text-xl font-semibold">{dt1.PRODUCT_NAME}</h3>
-                <div class="flex items-center gap-2 md:gap-4 mt-4">
-                    <p class="text-sm text-gray-800">Total Order</p>
-                    <div class="mt-2 text-sm text-green-600 bg-green-100 inline-block px-3 py-0.5 rounded">{dt1.TotalQty}</div>
-                </div>
-            ))}
+            <table class="w-full text-sm">
+                <thead class="text-gray-500 border-b">
+                    <tr>
+                        <th class="text-left py-2">Product Name</th>
+                        <th class="text-left py-2">Total Order</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data1.map((dt1: any) => (
+                        <tr class="border-b hover:bg-gray-200">
+                            <td class="py-3">{dt1.PRODUCT_NAME}</td>
+                            <td class="py-3">{dt1.TotalQty}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </section>
 
         <!-- Customer with the most orders in the previous year -->
-        <section class="bg-white rounded-xl p-4 shadow-sm overflow-x-auto">
+        <section class="bg-white rounded-xl p-4 shadow-sm max-h-100 overflow-y-auto overflow-x-auto">
             <h2 class="font-bold mb-4 text-2xl">Customer with the most orders in the previous year</h2>
-            <p class="text-sm text-gray-800">Customer Name</p>
-            <div class="mt-2 border w-md border-gray-300"></div>
-            {data2.map((dt2: any) => (
-                <h3 class="mt-3 text-xl font-semibold">{dt2.CUST_NAME}</h3>
-                <div class="flex items-center gap-2 md:gap-4 mt-4">
-                    <p class="text-sm text-gray-800">Total Order</p>
-                    <div class="mt-2 text-sm text-green-600 bg-green-100 inline-block px-3 py-0.5 rounded">{dt2.JumlahOrder}</div>
-                </div>
-            ))}
+            <table class="w-full text-sm">
+                <thead class="text-gray-500 border-b">
+                    <tr>
+                        <th class="text-left py-2">Customer Name</th>
+                        <th class="text-left py-2">Total Order</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data2.map((dt2: any) => (
+                        <tr class="border-b hover:bg-gray-200">
+                            <td class="py-3">{dt2.CUST_NAME}</td>
+                            <td class="py-3">{dt2.JumlahOrder}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </section>
 
         <!-- Customer with the largest order value in the previous year -->
@@ -87,17 +137,24 @@ const data10 = await resp10.json();
         </section>
 
         <!-- Customer with the most items in the previous year -->
-        <section class="bg-white rounded-xl p-4 shadow-sm overflow-x-auto">
+        <section class="bg-white rounded-xl p-4 shadow-sm max-h-100 overflow-y-auto overflow-x-auto">
             <h2 class="font-bold mb-4 text-2xl">Customer with the most items in the previous year</h2>
-            <p class="text-sm text-gray-800">Customer Name</p>
-            <div class="mt-2 border w-md border-gray-300"></div>
-            {data4.map((dt4: any) => (
-                <h3 class="mt-3 text-xl font-semibold">{dt4.CUST_NAME}</h3>
-                <div class="flex items-center gap-2 md:gap-4 mt-4">
-                    <p class="text-sm text-gray-800">Total Items</p>
-                    <div class="mt-2 text-sm text-green-600 bg-green-100 inline-block px-3 py-0.5 rounded">{dt4.TotalItems}</div>
-                </div>
-            ))}
+            <table class="w-full text-sm">
+                <thead class="text-gray-500 border-b">
+                    <tr>
+                        <th class="text-left py-2">Customer Name</th>
+                        <th class="text-left py-2">Total Items</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data4.map((dt4: any) => (
+                        <tr class="border-b hover:bg-gray-200">
+                            <td class="py-3">{dt4.CUST_NAME}</td>
+                            <td class="py-3">{dt4.TotalItems}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </section>
 
         <!-- Top 10 best-selling products of the previous year -->
@@ -122,7 +179,7 @@ const data10 = await resp10.json();
         </section>
 
         <!-- Monthly sales profit per product -->
-        <section class="bg-white rounded-xl p-4 shadow-sm overflow-x-auto">
+        <section class="bg-white rounded-xl p-4 shadow-sm max-h-100 overflow-y-auto overflow-x-auto">
             <h2 class="font-bold mb-4 text-2xl">Monthly sales profit per product</h2>
             <table class="w-full text-sm">
                 <thead class="text-gray-500 border-b">
@@ -145,7 +202,7 @@ const data10 = await resp10.json();
         </section>
 
         <!-- Monthly sales amount per product -->
-        <section class="bg-white rounded-xl p-4 shadow-sm overflow-x-auto">
+        <section class="bg-white rounded-xl p-4 shadow-sm max-h-100 overflow-y-auto overflow-x-auto">
             <h2 class="font-bold mb-4 text-2xl">Monthly sales amount per product</h2>
             <table class="w-full text-sm">
                 <thead class="text-gray-500 border-b">
@@ -168,7 +225,7 @@ const data10 = await resp10.json();
         </section>
 
         <!-- Number of monthly orders per customer -->
-        <section class="bg-white rounded-xl p-4 shadow-sm overflow-x-auto">
+        <section class="bg-white rounded-xl p-4 shadow-sm max-h-100 overflow-y-auto overflow-x-auto">
             <h2 class="font-bold mb-4 text-2xl">Number of monthly orders per customer</h2>
             <table class="w-full text-sm">
                 <thead class="text-gray-500 border-b">
@@ -191,7 +248,7 @@ const data10 = await resp10.json();
         </section>
 
         <!-- Total monthly order amount per customer -->
-        <section class="bg-white rounded-xl p-4 shadow-sm overflow-x-auto">
+        <section class="bg-white rounded-xl p-4 shadow-sm max-h-100 overflow-y-auto overflow-x-auto">
             <h2 class="font-bold mb-4 text-2xl">Total monthly order amount per customer</h2>
             <table class="w-full text-sm">
                 <thead class="text-gray-500 border-b">
@@ -214,7 +271,7 @@ const data10 = await resp10.json();
         </section>
 
         <!-- Number of monthly services per cashier -->
-        <section class="bg-white rounded-xl p-4 shadow-sm overflow-x-auto">
+        <section class="bg-white rounded-xl p-4 shadow-sm max-h-100 overflow-y-auto overflow-x-auto">
             <h2 class="font-bold mb-4 text-2xl">Number of monthly services per cashier</h2>
             <table class="w-full text-sm">
                 <thead class="text-gray-500 border-b">

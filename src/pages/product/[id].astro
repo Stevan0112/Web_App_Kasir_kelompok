@@ -1,0 +1,9 @@
+---
+import Frontpage from "../../layouts/Frontpage.astro";
+
+const { id } = Astro.params;
+
+// Menampilkan detail produk
+const resp = await fetch(`http://localhost:3000/api/products/${id}`);
+const product = await resp.json();
+---

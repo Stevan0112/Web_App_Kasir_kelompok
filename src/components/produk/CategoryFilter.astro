@@ -1,0 +1,19 @@
+---
+const { categories } = Astro.props;
+---
+
+<div class="flex flex-wrap gap-3 items-center">
+    <button data-category="all" class="px-5 py-2 rounded-xl bg-pink-500 text-white text-sm font-medium">
+        Semua
+    </button>
+
+    {categories.map((cat: any) => (
+        <button data-category={cat.CATEGORY_ID} class="px-5 py-2 rounded-xl bg-pink-100 text-pink-700 text-sm hover:bg-pink-200">
+            {cat.CATEGORY}
+        </button>
+    ))}
+
+    <button class="ml-auto px-5 py-2 rounded-md border text-sm">
+        Filter
+    </button>
+</div>

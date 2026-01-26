@@ -1,0 +1,26 @@
+---
+import Frontpage from "../layouts/Frontpage.astro";
+import Hero from "../components/landing/Hero.astro";
+import CategoryFilter from "../components/produk/CategoryFilter.astro";
+import ProductGrid from "../components/produk/ProductGrid.astro";
+import ProductCategory from "../components/produk/ProductCategory.astro";
+import BlogSection from "../components/produk/BlogSection.astro";
+
+const categoriesResp = await fetch("http://localhost:3000/api/categories");
+const categories = await categoriesResp.json();
+
+const productsResp = await fetch("http://localhost:3000/api/products");
+const products = await productsResp.json();
+---
+
+<Frontpage>
+    <Hero />
+
+    <section class="mt-16 px-16 max-w-7xl mx-auto space-y-8">
+        <CategoryFilter categories={categories} />
+        <ProductGrid products={products} />
+    </section>
+
+    <ProductCategory />
+    <BlogSection />
+</Frontpage>

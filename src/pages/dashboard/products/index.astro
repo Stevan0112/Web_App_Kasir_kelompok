@@ -1,5 +1,5 @@
 ---
-import Dashboard from "../../layouts/Dashboard.astro";
+import Dashboard from "../../../layouts/Dashboard.astro";
 
 const [productResp, categoryResp] = await Promise.all([
     fetch('http://localhost:3000/api/products'),
@@ -24,7 +24,7 @@ const categories = await categoryResp.json();
                 <a href={`?category=${cat.CATEGORY_ID}`} class="bg-white rounded-xl p-4 flex items-center gap-3 shadow-sm hover:shadow-md transition">
                     <div class="w-10 h-10 bg-gray-300 rounded-full"></div>
                     <div>
-                        <p class="font-medium">{cat.CATEGORY}(<span class="font-bold">{cat.CATEGORY_ID}</span>)</p>
+                        <p class="font-medium">{cat.CATEGORY}</p>
                         <p class="font-bold">
                             {products.filter((p: any) => p.CATEGORY_ID === cat.CATEGORY_ID).length}
                         </p>
@@ -66,7 +66,7 @@ const categories = await categoryResp.json();
                         <!-- Price -->
                         <div class="flex justify-between">
                             <span class="font-medium">Rp. {product.PRICE},-</span>
-                            <span class="font-bold">{product.CATEGORY_ID}</span>
+                            <span class="font-bold">{product.category_name}</span>
                         </div>
 
                         <!-- Actions -->

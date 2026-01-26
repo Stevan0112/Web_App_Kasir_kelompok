@@ -1,5 +1,5 @@
 ---
-import Dashboard from "../../layouts/Dashboard.astro";
+import Dashboard from "../../../layouts/Dashboard.astro";
 
 const resp = await fetch('http://localhost:3000/api/penjualan');
 const sales = await resp.json();
@@ -16,9 +16,9 @@ const sales = await resp.json();
         </div>
 
         <!-- Card -->
-        <section class="bg-white rounded-xl shadow-sm overflow-x-auto">
+        <section class="bg-white rounded-xl shadow-sm max-h-100 overflow-y-auto overflow-x-auto">
             <!-- Card Header -->
-            <div class="flex items-center justify-between px-4 py-3 border-b">
+            <div class="flex bg-white items-center sticky top-0 justify-between px-4 py-4 border-b border-gray-500">
                 <h2 class="font-bold text-2xl">Data Penjualan</h2>
                 <div class="flex gap-2">
                     <!-- <button class="px-3 py-1 text-sm border rounded-md hover:bg-gray-100">
