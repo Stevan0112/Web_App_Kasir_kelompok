@@ -13,9 +13,11 @@ const categories = await categoryResp.json();
     <div class="space-y-6">
         <!-- Add product button -->
         <div class="flex justify-end">
-            <button class="px-4 py-2 bg-pink-500 text-white rounded-md hover:bg-pink-600">
-                + New Product
-            </button>
+            <a href="/dashboard/products/create">
+                <button class="px-4 py-2 bg-pink-500 text-white rounded-md hover:bg-pink-600">
+                    + New Product
+                </button>
+            </a>
         </div>
 
         <!-- Category Cards -->
@@ -38,7 +40,7 @@ const categories = await categoryResp.json();
             {products.map((product: any) => (
                 <div class="bg-white rounded-xl shadow-sm overflow-hidden relative">
                     <!-- Delete Button -->
-                    <button class="absolute top-3 right-3 w-10 h-10 opacity-70 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600"aria-label="Delete Product">
+                    <button onclick={`deleteItem(${product.id})`} class="absolute top-3 right-3 w-10 h-10 opacity-70 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 cursor-pointer" aria-label="Delete Product">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16z" /><path d="M14 2a2 2 0 0 1 2 2a1 1 0 0 1 -1.993 .117l-.007 -.117h-4l-.007 .117a1 1 0 0 1 -1.993 -.117a2 2 0 0 1 1.85 -1.995l.15 -.005h4z" /></svg>
                     </button>
 
@@ -74,9 +76,9 @@ const categories = await categoryResp.json();
                             <button class="w-full bg-pink-500 text-white py-2 rounded-md hover:bg-pink-600 flex items-center justify-center gap-2">
                                 Add To Cart <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-shopping-cart"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 2a1 1 0 0 1 .993 .883l.007 .117v1.068l13.071 .935a1 1 0 0 1 .929 1.024l-.01 .114l-1 7a1 1 0 0 1 -.877 .853l-.113 .006h-12v2h10a3 3 0 1 1 -2.995 3.176l-.005 -.176l.005 -.176c.017 -.288 .074 -.564 .166 -.824h-5.342a3 3 0 1 1 -5.824 1.176l-.005 -.176l.005 -.176a3.002 3.002 0 0 1 1.995 -2.654v-12.17h-1a1 1 0 0 1 -.993 -.883l-.007 -.117a1 1 0 0 1 .883 -.993l.117 -.007h2zm0 16a1 1 0 1 0 0 2a1 1 0 0 0 0 -2m11 0a1 1 0 1 0 0 2a1 1 0 0 0 0 -2" /></svg>
                             </button>
-                            <button class="w-full bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300">
-                                Restok
-                            </button>
+                            <a href={`/dashboard/products/edit/${product.id}`} class="block text-center w-full bg-gray-200 text-gray-700 py-2 rounded-md hover:bg-gray-300">
+                                Edit
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -92,7 +94,17 @@ const categories = await categoryResp.json();
                 <path d="M6 2a1 1 0 0 1 .993 .883l.007 .117v1.068l13.071 .935a1 1 0 0 1 .929 1.024l-.01 .114l-1 7a1 1 0 0 1 -.877 .853l-.113 .006h-12v2h10a3 3 0 1 1 -2.995 3.176l-.005 -.176l.005 -.176c.017 -.288 .074 -.564 .166 -.824h-5.342a3 3 0 1 1 -5.824 1.176l-.005 -.176l.005 -.176a3.002 3.002 0 0 1 1.995 -2.654v-12.17h-1a1 1 0 0 1 -.993 -.883l-.007 -.117a1 1 0 0 1 .883 -.993l.117 -.007h2z"/>
             </svg>
         </button>
-
-        <!-- Pagination -->
     </div>
 </Dashboard>
+
+<script is:inline>
+    async function deleteItem(id) {
+        if (confirm("Apakah kamu yakin ingin menghapus produk ini?")) {
+            await fetch(`http://localhost:3000/api/products/${id}`, {
+                method: "DELETE",
+            });
+            alert("Produk berhasil dihapus");
+            window.location.reload();
+        }
+    }
+</script>

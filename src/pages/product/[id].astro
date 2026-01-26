@@ -1,9 +1,57 @@
 ---
 import Frontpage from "../../layouts/Frontpage.astro";
 
+export async function getStaticPaths() {
+    const res = await fetch("http://localhost:3000/api/products");
+    const products = await res.json();
+
+    return products.map((p: any) => ({
+        params: { id: p.id.toString() }
+    }));
+}
+
 const { id } = Astro.params;
 
 // Menampilkan detail produk
 const resp = await fetch(`http://localhost:3000/api/products/${id}`);
 const product = await resp.json();
 ---
+
+<Frontpage>
+    <section class="py-28 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+                <!-- Image -->
+                <div class="relative">
+                    <img 
+                    src="https://images.unsplash.com/vector-1740294799662-8407742d8edc?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGZvb2R8ZW58MHx8MHx8fDI%3D" 
+                    alt={product.name}
+                    class="w-full object-cover"
+                    >
+                </div>
+
+                <!-- Content -->
+                <div class="space-y-4">
+                    <h1 class="text-3xl md:text-4xl font-bold">{product.name}</h1>
+                    <!-- Rating -->
+                    <div class="flex items-center gap-3 text-sm">
+                        <span class="text-yellow-400">★★★★★</span>
+                        <span class="text-gray-500">4.0</span>
+                        <span class="text-gray-400">(3.275 Review)</span>
+                    </div>
+
+                    <!-- Price -->
+                    <span class="text-2xl font-medium">Rp. {product.price},-</span>
+
+                    <!-- Desc -->
+                    <p class="text-gray-600 leading-relaxed max-w-xl mt-4">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                        Dolore exercitationem, beatae unde voluptatem facilis alias! 
+                        Totam magni praesentium aliquam hic sed modi, 
+                        reprehenderit fuga dolore velit earum quis voluptatem dolorem.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</Frontpage>

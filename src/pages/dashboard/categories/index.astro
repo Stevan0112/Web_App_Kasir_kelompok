@@ -6,5 +6,61 @@ const categories = await resp.json();
 ---
 
 <Dashboard title="Categories">
-    <div class="space-y-6"></div>
+    <div class="space-y-6">
+        <!-- Add Categories button -->
+        <div class="flex justify-end">
+            <button class="px-4 py-2 bg-pink-500 text-white rounded-md hover:bg-pink-600">
+                + New Category
+            </button>
+        </div>
+
+        <!-- Categories Card -->
+        <section class="bg-white rounded-xl shadow-sm overflow-x-auto">
+            <!-- Header -->
+            <div class="px-4 py-3 border-b">
+                <h2 class="font-bold text-2xl">Category Lists</h2>
+            </div>
+
+            <!-- Table -->
+            <table class="w-full text-sm">
+                <thead class="text-gray-500 border-b">
+                    <tr>
+                        <th class="text-left py-3 px-2">ID</th>
+                        <th class="text-left py-3">Name</th>
+                        <th class="text-center py-3">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {categories.map((cat: any) => (
+                    <tr class="border-b hover:bg-gray-100">
+                        <td class="text-left py-3 px-3">{cat.id}</td>
+                        <td class="text-left py-3">{cat.name}</td>
+                        <td class="text-center py-3">
+                            <div class="flex justify-center gap-2">
+                                <button class="p-1 rounded-full bg-gray-200 hover:bg-gray-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" /><path d="M13.5 6.5l4 4" /></svg>
+                                </button>
+                                <button onclick={`deleteItem(${cat.id})`} class="p-1 rounded-full bg-gray-200 hover:bg-gray-300">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16z" /><path d="M14 2a2 2 0 0 1 2 2a1 1 0 0 1 -1.993 .117l-.007 -.117h-4l-.007 .117a1 1 0 0 1 -1.993 -.117a2 2 0 0 1 1.85 -1.995l.15 -.005h4z" /></svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
+        </section>
+    </div>
 </Dashboard>
+
+<script is:inline>
+    async function deleteItem(id) {
+        if (confirm("Apakah kamu yakin ingin menghapus data ini?")) {
+            await fetch(`http://localhost:3000/api/categories/${id}`, {
+                method: "DELETE",
+            });
+            alert("Data berhasil dihapus");
+            window.location.reload();
+        }
+    }
+</script>
