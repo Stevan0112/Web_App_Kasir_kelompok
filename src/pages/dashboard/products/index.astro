@@ -21,12 +21,12 @@ const categories = await categoryResp.json();
         <!-- Category Cards -->
         <section class="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4">
             {categories.map((cat: any) => (
-                <a href={`?category=${cat.CATEGORY_ID}`} class="bg-white rounded-xl p-4 flex items-center gap-3 shadow-sm hover:shadow-md transition">
+                <a href={`?category=${cat.id}`} class="bg-white rounded-xl p-4 flex items-center gap-3 shadow-sm hover:shadow-md transition">
                     <div class="w-10 h-10 bg-gray-300 rounded-full"></div>
                     <div>
-                        <p class="font-medium">{cat.CATEGORY}</p>
+                        <p class="font-medium">{cat.name}</p>
                         <p class="font-bold">
-                            {products.filter((p: any) => p.CATEGORY_ID === cat.CATEGORY_ID).length}
+                            {products.filter((p: any) => p.category_id === cat.id).length}
                         </p>
                     </div>
                 </a>
@@ -46,7 +46,7 @@ const categories = await categoryResp.json();
                     <div class="h-48 bg-gray-200">
                         <img
                         src="https://images.unsplash.com/vector-1740294799662-8407742d8edc?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGZvb2R8ZW58MHx8MHx8fDI%3D"
-                        alt={product.PRODUCT_NAME}
+                        alt={product.name}
                         class="w-full h-full object-cover"
                         />
                     </div>
@@ -54,7 +54,7 @@ const categories = await categoryResp.json();
                     <!-- Content -->
                     <div class="p-4 space-y-2">
                         <!-- Product Name -->
-                        <h3 class="font-semibold text-lg">{product.PRODUCT_NAME}</h3>
+                        <h3 class="font-semibold text-lg">{product.name}</h3>
 
                         <!-- Rating -->
                         <div class="flex items-center gap-2 text-sm">
@@ -65,7 +65,7 @@ const categories = await categoryResp.json();
 
                         <!-- Price -->
                         <div class="flex justify-between">
-                            <span class="font-medium">Rp. {product.PRICE},-</span>
+                            <span class="font-medium">Rp. {product.price},-</span>
                             <span class="font-bold">{product.category_name}</span>
                         </div>
 

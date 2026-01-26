@@ -39,20 +39,20 @@ const customers = await resp.json();
             <table class="w-full text-sm">
                 <thead class="text-gray-500 border-b">
                     <tr>
-                        <th class="text-left px-2 py-3">Name</th>
+                        <th class="text-left px-2 py-3">ID</th>
+                        <th class="text-left py-3">Name</th>
                         <th class="text-left py-3">Contact</th>
                         <th class="text-left py-3">Email</th>
-                        <th class="text-left py-3">Gender</th>
                         <th class="text-center py-3">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {customers.map((customer: any) => (
                         <tr class="border-b hover:bg-gray-100">
-                            <td class="py-3 px-2 text-left font-medium">{customer.CUST_NAME}</td>
-                            <td class="py-3">{customer.CONTACT_NUMBER}</td>
-                            <td class="py-3">{customer.EMAIL}</td>
-                            <td class="py-3">{customer.GENDER_ID}</td>
+                            <td class="py-3 px-2 text-left font-medium">{customer.id}</td>
+                            <td class="py-3">{customer.name}</td>
+                            <td class="py-3">{customer.phone}</td>
+                            <td class="py-3">{customer.email}</td>
 
                             <!-- Action -->
                             <td class="py-3 text-center">

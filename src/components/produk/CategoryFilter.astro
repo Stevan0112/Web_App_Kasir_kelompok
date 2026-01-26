@@ -8,8 +8,8 @@ const { categories } = Astro.props;
     </button>
 
     {categories.map((cat: any) => (
-        <button data-category={cat.CATEGORY_ID} class="px-5 py-2 rounded-xl bg-pink-100 text-pink-700 text-sm hover:bg-pink-200">
-            {cat.CATEGORY}
+        <button data-category={cat.id} class="px-5 py-2 rounded-xl bg-pink-100 text-pink-700 text-sm hover:bg-pink-200">
+            {cat.name}
         </button>
     ))}
 
