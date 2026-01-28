@@ -9,7 +9,6 @@ if (Astro.request.method === "POST") {
     const data = await Astro.request.formData();
     const body = {
         name: data.get("category"),
-        id: data.get("id_cat"),
     };
 
     // Kirim data ke Server untuk membuat kategori baru
@@ -30,8 +29,8 @@ if (Astro.request.method === "POST") {
         <section class="bg-white rounded-xl shadow-sm">
             <!-- Header -->
             <div class="px-6 py-4 border-b">
-                <h2 class="font-bold text-2xl">Create Category</h2>
-                <p class="text-sm text-gray-500">Tambahkan kategori baru ke sistem</p>
+                <h2 class="font-bold text-2xl">Edit Category</h2>
+                <p class="text-sm text-gray-500">Perbarui data kategori ke sistem</p>
             </div>
             
             <!-- Form -->
@@ -42,14 +41,6 @@ if (Astro.request.method === "POST") {
                         Category Name
                     </label>
                     <input type="text" name="category" value={category.name} placeholder="Masukkan nama kategori" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-pink-500 outline-none" required/>
-                </div>
-
-                <!-- Category ID -->
-                <div>
-                    <label for="ID-kategori" class="block text-sm font-medium mb-1">
-                        Category ID  <span class="text-sm text-gray-500">*Note: Pastikan ID tidak boleh sama dengan ID lain</span>
-                    </label>
-                    <input type="text" name="id_cat" value={category.id} placeholder="Masukkan ID kategori" maxlength="2" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-pink-500 uppercase outline-none" required/>
                 </div>
             </div>
 

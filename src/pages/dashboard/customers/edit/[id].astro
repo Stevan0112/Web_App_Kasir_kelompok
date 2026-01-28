@@ -1,5 +1,12 @@
 ---
-import Dashboard from "../../../layouts/Dashboard.astro";
+import Dashboard from "../../../../layouts/Dashboard.astro";
+
+const { id } = Astro.params;
+const resp = await fetch(`http://localhost:3000/api/customers/${id}`);
+const customer = await resp.json();
+
+const rawDate = customer.DATE_OF_BIRTH;
+const birthDate = rawDate ? new Date(rawDate).toISOString().split("T")[0] : "";
 
 if (Astro.request.method === "POST") {
     const data = await Astro.request.formData();
@@ -14,8 +21,8 @@ if (Astro.request.method === "POST") {
     };
 
     // Kirim data ke Server untuk  membuat produk baru
-    await fetch("http://localhost:3000/api/customers", {
-        method: "POST",
+    await fetch(`http://localhost:3000/api/customers/${id}`, {
+        method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
@@ -31,8 +38,8 @@ if (Astro.request.method === "POST") {
         <section class="bg-white rounded-xl shadow-sm">
             <!-- Header -->
             <div class="px-6 py-4 border-b">
-                <h2 class="font-bold text-2xl">Create Customer</h2>
-                <p class="text-sm text-gray-500">Tambahkan customer baru ke sistem</p>
+                <h2 class="font-bold text-2xl">Edit Customer</h2>
+                <p class="text-sm text-gray-500">Perbarui data customer ke sistem</p>
             </div>
             
             <!-- Form -->
@@ -42,7 +49,7 @@ if (Astro.request.method === "POST") {
                     <label for="Nama-Customer" class="block text-sm font-medium mb-1">
                         Customer Name
                     </label>
-                    <input type="text" name="name" placeholder="Masukkan nama customer" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-pink-500 outline-none" required/>
+                    <input type="text" name="name" value={customer.name} placeholder="Masukkan nama customer" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-pink-500 outline-none" required/>
                 </div>
 
                 <!-- Email & Contact -->
@@ -52,7 +59,7 @@ if (Astro.request.method === "POST") {
                         <label for="Email" class="block text-sm font-medium mb-1">
                             Email
                         </label>
-                        <input type="email" name="email" placeholder="Masukkan email customer" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-pink-500 outline-none" required/>
+                        <input type="email" name="email" value={customer.email} placeholder="Masukkan email customer" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-pink-500 outline-none" required/>
                     </div>
 
                     <!-- Contact number -->
@@ -60,7 +67,7 @@ if (Astro.request.method === "POST") {
                         <label for="Contact" class="block text-sm font-medium mb-1">
                             Contact Number
                         </label>
-                        <input type="number" name="contact" placeholder="Masukkan nomor HP customer" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-pink-500 outline-none" required/>
+                        <input type="number" name="contact" value={customer.phone} placeholder="Masukkan nomor HP customer" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-pink-500 outline-none" required/>
                     </div>
                 </div>
                 
@@ -69,7 +76,7 @@ if (Astro.request.method === "POST") {
                     <label for="Address" class="block text-sm font-medium mb-1">
                         Address
                     </label>
-                    <textarea name="address" placeholder="Masukkan alamat customer" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-pink-500 outline-none" required></textarea>
+                    <textarea name="address" placeholder="Masukkan alamat customer" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-pink-500 outline-none" required>{customer.address}</textarea>
                 </div>
 
                 <!-- Gender & Date of birth -->
@@ -81,8 +88,8 @@ if (Astro.request.method === "POST") {
                         </label>
                         <select name="gender_id" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-pink-500 outline-none" required>
                             <option value="">-- Pilih Gender --</option>
-                            <option value="L">Laki-laki</option>
-                            <option value="P">Perempuan</option>
+                            <option value="L" selected={customer.gender_id === "L"}>Laki-laki</option>
+                            <option value="P" selected={customer.gender_id === "P"}>Perempuan</option>
                         </select>
                     </div>
 
@@ -91,7 +98,7 @@ if (Astro.request.method === "POST") {
                         <label for="Date-birth" class="block text-sm font-medium mb-1">
                             Date of Birth
                         </label>
-                        <input type="date" name="tgl_lahir" placeholder="Masukkan tanggal lahir customer" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-pink-500 outline-none" required/>
+                        <input type="date" name="tgl_lahir" value={birthDate} placeholder="Masukkan tanggal lahir customer" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-pink-500 outline-none" required/>
                     </div>
                 </div>
                 
@@ -100,7 +107,7 @@ if (Astro.request.method === "POST") {
                     <label for="Place-birth" class="block text-sm font-medium mb-1">
                         Place of Birth
                     </label>
-                    <input type="text" name="tempat_lahir" placeholder="Masukkan tempat lahir customer" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-pink-500 outline-none" required/>
+                    <input type="text" name="tempat_lahir" value={customer.PLACE_OF_BIRTH} placeholder="Masukkan tempat lahir customer" class="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-pink-500 outline-none" required/>
                 </div>
             </div>
 
