@@ -1,0 +1,38 @@
+---
+import Frontpage from "../layouts/Frontpage.astro";
+import Hero from "../components/landing/Hero.astro";
+
+const categoriesResp = await fetch("http://localhost:3000/api/categories");
+const categories = await categoriesResp.json();
+---
+
+<Frontpage>
+    <Hero />
+
+    <section class="mt-16 px-16 max-w-5xl mx-auto space-y-8">
+        <section class="bg-white rounded-xl shadow-sm overflow-x-auto">
+            <!-- Header -->
+            <div class="px-4 py-3 border-b">
+                <h2 class="font-bold text-2xl">Category Lists</h2>
+            </div>
+
+            <!-- Table -->
+            <table class="w-full text-sm">
+                <thead class="text-gray-500 border-b">
+                    <tr>
+                        <th class="text-center py-3">ID</th>
+                        <th class="text-center py-3">Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {categories.map((cat: any) => (
+                    <tr class="border-b hover:bg-gray-100">
+                        <td class="text-center py-3">{cat.id}</td>
+                        <td class="text-center py-3">{cat.name}</td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
+        </section>
+    </section>
+</Frontpage>

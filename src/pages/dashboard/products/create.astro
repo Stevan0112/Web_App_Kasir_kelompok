@@ -13,7 +13,7 @@ if (Astro.request.method === "POST") {
         category_id: data.get("category_id"),
     };
 
-    // Kirim data ke Server untuk  membuat produk baru
+    // Kirim data ke Server untuk membuat produk baru
     await fetch("http://localhost:3000/api/products", {
         method: "POST",
         headers: {

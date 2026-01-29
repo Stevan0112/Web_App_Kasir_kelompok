@@ -1,0 +1,144 @@
+---
+import Dashboard from "../../../layouts/Dashboard.astro";
+
+const custResp = await fetch("http://localhost:3000/api/customers");
+const customers = await custResp.json();
+---
+
+<Dashboard title="Transaction">
+    <div class="max-w-3xl space-y-6">
+
+        <!-- Customer -->
+        <div>
+        <label class="block text-sm font-medium mb-1">Customer</label>
+        <select id="customer" class="w-full border rounded-lg px-4 py-2" required>
+            <option value="">-- Pilih Customer --</option>
+            {customers.map((c: any) => (
+            <option value={c.id}>{c.name}</option>
+            ))}
+        </select>
+        </div>
+
+        <!-- Cart -->
+        <div class="bg-white rounded-xl shadow p-4 space-y-3">
+        <h3 class="font-bold text-lg">Cart</h3>
+        <div id="cart-items"></div>
+
+        <div class="border-t pt-3 flex justify-between font-bold">
+            <span>Total</span>
+            <span id="cart-total">Rp 0</span>
+        </div>
+        </div>
+
+        <!-- Action -->
+        <div class="flex justify-end">
+        <button
+            onclick="checkout()"
+            class="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+        >
+            Checkout
+        </button>
+        </div>
+    </div>
+</Dashboard>
+
+<script is:inline>
+    let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+    function renderCart() {
+        const container = document.getElementById("cart-items");
+        const totalEl = document.getElementById("cart-total");
+
+        container.innerHTML = "";
+
+        if (cart.length === 0) {
+        container.innerHTML = "<p class='text-gray-500'>Cart kosong</p>";
+        totalEl.innerText = "Rp 0";
+        return;
+        }
+
+        let total = 0;
+
+        cart.forEach((item, index) => {
+        const sub = item.price * item.quantity;
+        total += sub;
+
+        container.innerHTML += `
+            <div class="flex justify-between items-center">
+                <div>
+                    <p class="font-medium">${item.name}</p>
+                    <p class="text-sm text-gray-500">Rp ${item.price} x ${item.quantity}</p>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button onclick="decrease(${index})">-</button>
+                    <span>${item.quantity}</span>
+                    <button onclick="increase(${index})">+</button>
+                    <button onclick="removeItem(${index})" class="text-red-500">✕</button>
+                </div>
+            </div>
+        `;
+        });
+
+        totalEl.innerText = `Rp ${total}`;
+        localStorage.setItem("cart", JSON.stringify(cart));
+    }
+
+    function increase(i) {
+        cart[i].quantity++;
+        renderCart();
+    }
+
+    function decrease(i) {
+        if (cart[i].quantity > 1) cart[i].quantity--;
+        renderCart();
+    }
+
+    function removeItem(i) {
+        cart.splice(i, 1);
+        renderCart();
+    }
+
+    async function checkout() {
+        if (cart.length === 0) {
+            alert("Cart kosong");
+            return;
+        }
+
+        const customerId = document.getElementById("customer").value;
+        if (!customerId) {
+            alert("Pilih customer");
+            return;
+        }
+
+        // Payload MINIMAL sesuai backend
+        const payload = {
+            user_id: '24090056',
+            customer_id: Number(customerId),
+            total_amount: cart.reduce((s, i) => s + i.price * i.quantity, 0),
+            items: cart.map(i => ({
+                product_id: i.product_id,
+                quantity: i.quantity,
+                price: i.price
+            }))
+        };
+
+        const res = await fetch("http://localhost:3000/api/penjualan", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) {
+            const err = await res.text();
+            alert("Gagal checkout: " + err);
+            return;
+        }
+
+        localStorage.removeItem("cart");
+        alert("Transaksi berhasil");
+        window.location.href = "/dashboard/sales";
+    }
+
+    renderCart();
+</script>

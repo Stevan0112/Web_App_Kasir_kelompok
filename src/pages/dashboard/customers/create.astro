@@ -13,7 +13,7 @@ if (Astro.request.method === "POST") {
         PLACE_OF_BIRTH: data.get("tempat_lahir"),
     };
 
-    // Kirim data ke Server untuk  membuat produk baru
+    // Kirim data ke Server untuk menambah customer baru
     await fetch("http://localhost:3000/api/customers", {
         method: "POST",
         headers: {
