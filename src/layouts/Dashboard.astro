@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import { Image } from 'astro:assets';
+import WebLogo from '../assets/WebLogo.png';
 
 const { title = 'Dashboard' } = Astro.props;
 ---
@@ -18,7 +20,7 @@ const { title = 'Dashboard' } = Astro.props;
 
         <!-- Sidebar -->
         <aside id="sidebar" class="fixed md:static inset-y-0 left-0 w-64 bg-white p-6 z-40 transform -translate-x-full md:translate-x-0 transition-transform duration-300 flex flex-col">
-            <h1 class="text-xl font-bold mb-8">Ladang Makanan</h1>
+            <img src={WebLogo.src} alt="WebLogo" class="w-24 mb-6">
 
             <nav class="flex flex-col gap-2 text-gray-900">
                 <a href="/dashboard" class="sidebar-link flex items-center gap-4 px-3 py-2 rounded-lg hover:bg-gray-100 hover:font-medium">

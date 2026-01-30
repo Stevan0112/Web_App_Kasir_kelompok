@@ -1,7 +1,12 @@
-<header class="absolute top-0 left-0 w-full z-50">
+---
+import { Image } from "astro:assets";
+import WebLogo from "../../assets/WebLogo.png";
+---
+
+<header class="absolute top-0 left-0 w-full z-50 bg-linear-to-b from-pink-100 to-transparent">
     <div class="max-w-7xl mx-auto p-6 flex justify-between items-center">
         <!-- Logo -->
-        <h3 class="text-2xl font-semibold">Desta</h3>
+        <img src={WebLogo.src} alt="Logo" class="w-20 z-0">
 
         <!-- Navigation Links -->
         <nav class="hidden md:flex items-center gap-8 font-medium">
@@ -11,7 +16,7 @@
             </a>
             <a href="../../produk" class="hover:text-pink-500">Product</a>
             <a href="../../category" class="hover:text-pink-500">Category</a>
-            <a href="#" class="hover:text-pink-500">Contact Us</a>
+            <a href="../../contact" class="hover:text-pink-500">Contact Us</a>
         </nav>
 
         <!-- Login Button -->

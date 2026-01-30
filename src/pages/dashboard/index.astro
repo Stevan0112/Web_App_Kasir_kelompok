@@ -163,15 +163,29 @@ const totalCustomers = new Set(data2.map((d: any) => d.CUST_NAME)).size;
             <table class="w-full text-sm">
                 <thead class="text-gray-500 border-b">
                     <tr>
+                        <th class="text-left py-2">Nomor</th>
                         <th class="text-left py-2">Product Name</th>
-                        <th class="text-left py-2">Total Order</th>
+                        <th class="text-left py-2">Price</th>
+                        <th class="text-left py-2">Kategori</th>
+                        <th class="text-left py-2">Order</th>
+                        <th class="text-left py-2">Amount</th>
+                        <th class="text-left py-2">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {data5.map((dt5: any) => (
                         <tr class="border-b hover:bg-gray-200">
+                            <td class="py-3">{dt5.NOMOR}</td>
                             <td class="py-3">{dt5.PRODUCT_NAME}</td>
-                            <td class="py-3">{dt5.TotalQty}</td>
+                            <td class="py-3">Rp {dt5.PRICE.toLocaleString('id-ID')}</td>
+                            <td class="py-3">{dt5.KATEGORI}</td>
+                            <td class="py-3">{dt5.ORDER}</td>
+                            <td class="py-3">Rp {dt5.AMOUNT.toLocaleString('id-ID')}</td>
+                            <td class="py-3">
+                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-xs">
+                                    Detail
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
@@ -184,17 +198,39 @@ const totalCustomers = new Set(data2.map((d: any) => d.CUST_NAME)).size;
             <table class="w-full text-sm">
                 <thead class="text-gray-500 border-b">
                     <tr>
+                        <th class="text-left py-2">Nomor</th>
                         <th class="text-left py-2">Product Name</th>
-                        <th class="text-left py-2">Month</th>
-                        <th class="text-left py-2">Revenue</th>
+                        <th class="text-left py-2">Jan</th>
+                        <th class="text-left py-2">Feb</th>
+                        <th class="text-left py-2">Mar</th>
+                        <th class="text-left py-2">Apr</th>
+                        <th class="text-left py-2">Mei</th>
+                        <th class="text-left py-2">Jun</th>
+                        <th class="text-left py-2">Jul</th>
+                        <th class="text-left py-2">Agt</th>
+                        <th class="text-left py-2">Sep</th>
+                        <th class="text-left py-2">Okt</th>
+                        <th class="text-left py-2">Nov</th>
+                        <th class="text-left py-2">Des</th>
                     </tr>
                 </thead>
                 <tbody>
                     {data6.map((dt6: any) => (
                         <tr class="border-b hover:bg-gray-200">
+                            <td class="py-3">{dt6.NOMOR}</td>
                             <td class="py-3">{dt6.PRODUCT_NAME}</td>
-                            <td class="py-3">{dt6.Bulan}</td>
-                            <td class="py-3">{dt6.Revenue}</td>
+                            <td class="py-3">{dt6.JANUARI?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt6.FEBRUARI?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt6.MARET?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt6.APRIL?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt6.MEI?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt6.JUNI?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt6.JULI?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt6.AGUSTUS?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt6.SEPTEMBER?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt6.OKTOBER?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt6.NOVEMBER?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt6.DESEMBER?.toLocaleString('id-ID') || '-'}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -207,17 +243,39 @@ const totalCustomers = new Set(data2.map((d: any) => d.CUST_NAME)).size;
             <table class="w-full text-sm">
                 <thead class="text-gray-500 border-b">
                     <tr>
+                        <th class="text-left py-2">Nomor</th>
                         <th class="text-left py-2">Product Name</th>
-                        <th class="text-left py-2">Month</th>
-                        <th class="text-left py-2">Sold</th>
+                        <th class="text-left py-2">Jan</th>
+                        <th class="text-left py-2">Feb</th>
+                        <th class="text-left py-2">Mar</th>
+                        <th class="text-left py-2">Apr</th>
+                        <th class="text-left py-2">Mei</th>
+                        <th class="text-left py-2">Jun</th>
+                        <th class="text-left py-2">Jul</th>
+                        <th class="text-left py-2">Agt</th>
+                        <th class="text-left py-2">Sep</th>
+                        <th class="text-left py-2">Okt</th>
+                        <th class="text-left py-2">Nov</th>
+                        <th class="text-left py-2">Des</th>
                     </tr>
                 </thead>
                 <tbody>
                     {data7.map((dt7: any) => (
                         <tr class="border-b hover:bg-gray-200">
+                            <td class="py-3">{dt7.NOMOR}</td>
                             <td class="py-3">{dt7.PRODUCT_NAME}</td>
-                            <td class="py-3">{dt7.Bulan}</td>
-                            <td class="py-3">{dt7.JumlahTerjual}</td>
+                            <td class="py-3">{dt7.JANUARI || '-'}</td>
+                            <td class="py-3">{dt7.FEBRUARI || '-'}</td>
+                            <td class="py-3">{dt7.MARET || '-'}</td>
+                            <td class="py-3">{dt7.APRIL || '-'}</td>
+                            <td class="py-3">{dt7.MEI || '-'}</td>
+                            <td class="py-3">{dt7.JUNI || '-'}</td>
+                            <td class="py-3">{dt7.JULI || '-'}</td>
+                            <td class="py-3">{dt7.AGUSTUS || '-'}</td>
+                            <td class="py-3">{dt7.SEPTEMBER || '-'}</td>
+                            <td class="py-3">{dt7.OKTOBER || '-'}</td>
+                            <td class="py-3">{dt7.NOVEMBER || '-'}</td>
+                            <td class="py-3">{dt7.DESEMBER || '-'}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -230,17 +288,39 @@ const totalCustomers = new Set(data2.map((d: any) => d.CUST_NAME)).size;
             <table class="w-full text-sm">
                 <thead class="text-gray-500 border-b">
                     <tr>
+                        <th class="text-left py-2">Nomor</th>
                         <th class="text-left py-2">Customer Name</th>
-                        <th class="text-left py-2">Month</th>
-                        <th class="text-left py-2">Total Orders</th>
+                        <th class="text-left py-2">Jan</th>
+                        <th class="text-left py-2">Feb</th>
+                        <th class="text-left py-2">Mar</th>
+                        <th class="text-left py-2">Apr</th>
+                        <th class="text-left py-2">Mei</th>
+                        <th class="text-left py-2">Jun</th>
+                        <th class="text-left py-2">Jul</th>
+                        <th class="text-left py-2">Agt</th>
+                        <th class="text-left py-2">Sep</th>
+                        <th class="text-left py-2">Okt</th>
+                        <th class="text-left py-2">Nov</th>
+                        <th class="text-left py-2">Des</th>
                     </tr>
                 </thead>
                 <tbody>
                     {data8.map((dt8: any) => (
                         <tr class="border-b hover:bg-gray-200">
-                            <td class="py-3">{dt8.CUST_NAME}</td>
-                            <td class="py-3">{dt8.Bulan}</td>
-                            <td class="py-3">{dt8.JumlahOrder}</td>
+                            <td class="py-3">{dt8.NOMOR}</td>
+                            <td class="py-3">{dt8.cust_name}</td>
+                            <td class="py-3">{dt8.januari || '-'}</td>
+                            <td class="py-3">{dt8.februari || '-'}</td>
+                            <td class="py-3">{dt8.maret || '-'}</td>
+                            <td class="py-3">{dt8.april || '-'}</td>
+                            <td class="py-3">{dt8.mei || '-'}</td>
+                            <td class="py-3">{dt8.juni || '-'}</td>
+                            <td class="py-3">{dt8.juli || '-'}</td>
+                            <td class="py-3">{dt8.agustus || '-'}</td>
+                            <td class="py-3">{dt8.september || '-'}</td>
+                            <td class="py-3">{dt8.oktober || '-'}</td>
+                            <td class="py-3">{dt8.november || '-'}</td>
+                            <td class="py-3">{dt8.desember || '-'}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -253,17 +333,39 @@ const totalCustomers = new Set(data2.map((d: any) => d.CUST_NAME)).size;
             <table class="w-full text-sm">
                 <thead class="text-gray-500 border-b">
                     <tr>
+                        <th class="text-left py-2">Nomor</th>
                         <th class="text-left py-2">Customer Name</th>
-                        <th class="text-left py-2">Month</th>
-                        <th class="text-left py-2">Order Value</th>
+                        <th class="text-left py-2">Jan</th>
+                        <th class="text-left py-2">Feb</th>
+                        <th class="text-left py-2">Mar</th>
+                        <th class="text-left py-2">Apr</th>
+                        <th class="text-left py-2">Mei</th>
+                        <th class="text-left py-2">Jun</th>
+                        <th class="text-left py-2">Jul</th>
+                        <th class="text-left py-2">Agt</th>
+                        <th class="text-left py-2">Sep</th>
+                        <th class="text-left py-2">Okt</th>
+                        <th class="text-left py-2">Nov</th>
+                        <th class="text-left py-2">Des</th>
                     </tr>
                 </thead>
                 <tbody>
                     {data9.map((dt9: any) => (
                         <tr class="border-b hover:bg-gray-200">
-                            <td class="py-3">{dt9.CUST_NAME}</td>
-                            <td class="py-3">{dt9.Bulan}</td>
-                            <td class="py-3">Rp. {dt9.TotalNominal},-</td>
+                            <td class="py-3">{dt9.NOMOR}</td>
+                            <td class="py-3">{dt9.cust_name}</td>
+                            <td class="py-3">{dt9.januari?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt9.februari?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt9.maret?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt9.april?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt9.mei?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt9.juni?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt9.juli?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt9.agustus?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt9.september?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt9.oktober?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt9.november?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt9.desember?.toLocaleString('id-ID') || '-'}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -277,16 +379,36 @@ const totalCustomers = new Set(data2.map((d: any) => d.CUST_NAME)).size;
                 <thead class="text-gray-500 border-b">
                     <tr>
                         <th class="text-left py-2">Username(Cashier)</th>
-                        <th class="text-left py-2">Month</th>
-                        <th class="text-left py-2">Number of Services</th>
+                        <th class="text-left py-2">Jan</th>
+                        <th class="text-left py-2">Feb</th>
+                        <th class="text-left py-2">Mar</th>
+                        <th class="text-left py-2">Apr</th>
+                        <th class="text-left py-2">Mei</th>
+                        <th class="text-left py-2">Jun</th>
+                        <th class="text-left py-2">Jul</th>
+                        <th class="text-left py-2">Agt</th>
+                        <th class="text-left py-2">Sep</th>
+                        <th class="text-left py-2">Okt</th>
+                        <th class="text-left py-2">Nov</th>
+                        <th class="text-left py-2">Des</th>
                     </tr>
                 </thead>
                 <tbody>
                     {data10.map((dt10: any) => (
                         <tr class="border-b hover:bg-gray-200">
-                            <td class="py-3">{dt10.Nama_Kasir}</td>
-                            <td class="py-3">{dt10.Bulan}</td>
-                            <td class="py-3">{dt10.JumlahLayanan}</td>
+                            <td class="py-3">{dt10.username}</td>
+                            <td class="py-3">{dt10.januari?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt10.februari?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt10.maret?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt10.april?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt10.mei?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt10.juni?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt10.juli?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt10.agustus?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt10.september?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt10.oktober?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt10.november?.toLocaleString('id-ID') || '-'}</td>
+                            <td class="py-3">{dt10.desember?.toLocaleString('id-ID') || '-'}</td>
                         </tr>
                     ))}
                 </tbody>
